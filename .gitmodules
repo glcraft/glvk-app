@@ -1,0 +1,3 @@
+[submodule "glvk"]
+	path = glvk
+	url = git@github.com:glcraft/glvk.git
