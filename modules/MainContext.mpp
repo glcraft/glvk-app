@@ -1,0 +1,42 @@
+module;
+
+#include <GLFW/glfw3.h>
+
+export module MainContext;
+
+export class MainContext {
+    public:
+        MainContext();
+        ~MainContext();
+
+        auto run() -> void;
+    private:
+        auto initWindow() -> GLFWwindow*;
+        GLFWwindow* window;
+};
+
+MainContext::MainContext() {
+    this->window = initWindow();
+}
+MainContext::~MainContext() {
+    glfwDestroyWindow(this->window);
+
+    glfwTerminate();
+}
+
+
+
+auto MainContext::initWindow() -> GLFWwindow* {
+    glfwInit();
+
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+    return glfwCreateWindow(800, 600, "Vulkan window", nullptr, nullptr);
+}
+
+auto MainContext::run() -> void {
+    while(!glfwWindowShouldClose(this->window)) {
+        glfwPollEvents();
+    }
+}
