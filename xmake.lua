@@ -1,6 +1,6 @@
 add_rules("mode.debug", "mode.release")
 
-add_requires("glm", "glfw", "vulkan-headers 1.3.268")
+add_requires("glm", "sdl2", "vulkan-headers 1.3.268")
 
 includes("glvk")
 
@@ -11,7 +11,7 @@ target("glvk-app")
         "src/*.cpp", 
         "modules/*.mpp"
     )
-    add_packages("glm", "glfw", "vulkan-headers")
+    add_packages("glm", "sdl2", "vulkan-headers")
     add_deps("glvk")
     add_cxxflags("-stdlib=libc++", "-fexperimental-library")
     set_policy("build.c++.modules", true)
