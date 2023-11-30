@@ -1,4 +1,3 @@
-
 import std;
 import glvk;
 import glm;
@@ -8,16 +7,19 @@ import MainContext;
 import Types;
 
 int main() {
-    auto ctx = MainContext{};
+    auto glfw_ctx = sdl2::Context{};
 
     UInt32 extensionCount = 0;
     vk::enumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
-
     std::println("{} extensions supported", extensionCount);
+    std::vector<vk::ExtensionProperties> extensions(extensionCount);
+    vk::enumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
 
-    glm::mat4 matrix;
-    glm::vec4 vec;
-    auto test = matrix * vec;
+    for (UInt32 i = 0; i < extensionCount; i++) {
+        std::println("    - {}", std::data(extensions[i].extensionName));
+    }
+    
+    auto ctx = MainContext{glfw_ctx};
 
     ctx.run();
 
