@@ -1,18 +1,21 @@
 add_rules("mode.debug", "mode.release")
 
-add_requires("glm", "sdl2", "vulkan-headers 1.3.268")
+add_requires("glm", "libsdl", "vulkan-headers 1.3.268")
 
 includes("glvk")
 
-target("glvk-app")
+add_cxxflags("clang::-fexperimental-library", { force = true })
+add_ldflags("clang::-fexperimental-library", { force = true })
+add_shflags("clang::-fexperimental-library", { force = true })
+add_mxxflags("clang::-fexperimental-library", { force = true })
+
+target("glvk-app", function()
     set_kind("binary")
     set_languages("cxx23")
     add_files(
         "src/*.cpp", 
         "modules/*.mpp"
     )
-    add_packages("glm", "sdl2", "vulkan-headers")
+    add_packages("glm", "libsdl", "vulkan-headers")
     add_deps("glvk")
-    add_cxxflags("-stdlib=libc++", "-fexperimental-library")
-    set_policy("build.c++.modules", true)
-    set_policy("build.c++.clang.stdmodules", false)
+end)
